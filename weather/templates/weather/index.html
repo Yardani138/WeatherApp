@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather app</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Weather application</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="/">Main page</a>
+      <a class="p-2 text-dark" href="/info">Info</a>
+    </nav>
+    <a class="btn btn-outline-primary" href="/donate">Donate</a>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-5">
+        <h1>Weather in your city</h1>
+        <form action="" method="post">
+          {% csrf_token %}
+          <label for="city">City</label>
+          {{ form.name }}
+          <input type="submit" name="send" value="Search" class="mt-2 btn btn-danger">
+        </form>
+      </div>
+      <div class="col-5 offset-2">
+        <h1>Information</h1>
+        {% for info in all_info %}
+        <div class="alert alert-info">
+          <div class="row">
+            <div class="col-9">
+              <b>City:</b> {{ info.city }}<br>
+              <b>Temperature:</b> {{ info.temp }}<sup>o</sup><br>
+              <b>Feels like:</b> {{ info.feels }}<sup>o</sup><br>
+              <b>Visibility:</b> {{ info.visibility }} M<br>
+              <b>Country:</b> {{ info.country }}<br>
+              <form action="" method="post">
+                <input type="submit" name="remove" value="Remove" class="mt-2 btn btn-danger">
+              </form>
+            </div>
+            <div class="col-2 offset-1">
+              <img src="http://openweathermap.org/img/w/{{ info.icon }}.png" alt="Photo" class="img=thumbnail">
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <br>
+  <footer class="container">
+    <p>© 2020 || Yardani</p>
+  </footer>
+</body>
+</html>
